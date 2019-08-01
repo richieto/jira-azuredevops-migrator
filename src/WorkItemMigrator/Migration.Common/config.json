@@ -1,0 +1,341 @@
+{
+  "source-project": "PL",
+  "target-project": "Adra Test2",
+  "query": "project = PL ORDER BY Rank ASC",
+  "workspace": "C:\\Temp\\JiraExport\\",
+  "epic-link-field": "customfield_11100",
+  "sprint-field": "customfield_10800",
+  "confluence-link-field": "customfield_13714",
+  "batch-size": 20,
+  "log-level": "Error",
+  "attachment-folder": "Attachments",
+  "user-mapping-file": "users.txt",
+  "base-area-path": "",
+  "base-iteration-path": "Jira",
+  "ignore-failed-links": false,
+  "process-template": "Agile Extended 1",
+  "link-map": {
+    "link": [
+      {
+        "source": "Epic",
+        "target": "System.LinkTypes.Hierarchy-Reverse"
+      },
+      {
+        "source": "Parent",
+        "target": "System.LinkTypes.Hierarchy-Reverse"
+      },
+      {
+        "source": "Relates",
+        "target": "System.LinkTypes.Related"
+      },
+      {
+        "source": "Duplicate",
+        "target": "System.LinkTypes.Duplicate-Forward"
+      },
+      {
+        "source": "Cloners",
+        "target": "System.LinkTypes.Duplicate-Forward"
+      },
+      {
+        "source": "Blocks",
+        "target": "System.LinkTypes.Dependency.Predecessor"
+      },
+      {
+        "source": "Problem/Incident",
+        "target": "System.LinkTypes.Related"
+      },
+      {
+        "source": "Bonfire Testing",
+        "target": "System.LinkTypes.Related"
+      },
+      {
+        "source": "Gantt Start to Start",
+        "target": "System.LinkTypes.Related"
+      },
+      {
+        "source": "Gantt End to Start",
+        "target": "System.LinkTypes.Related"
+      }
+    ]
+  },
+  "type-map": {
+    "type": [
+      {
+        "source": "Epic",
+        "target": "Epic"
+      },
+      {
+        "source": "Feature",
+        "target": "Feature"
+      },
+      {
+        "source": "Story",
+        "target": "User Story"
+      },
+      {
+        "source": "Bug",
+        "target": "Bug"
+      },
+      {
+        "source": "Task",
+        "target": "Assignment"
+      },
+      {
+        "source": "Task - Reviews not needed",
+        "target": "Assignment"
+      },
+      {
+        "source": "Sub-Task",
+        "target": "Task"
+      },
+      {
+        "source": "Sub-Task - no review",
+        "target": "Task"
+      },
+      {
+        "source": "Technical task",
+        "target": "Engineering"
+      },
+      {
+        "source": "Improvement",
+        "target": "Improvement"
+      },
+      {
+        "source": "Clarification",
+        "target": "Issue"
+      }
+    ]
+  },
+  "field-map": {
+    "field": [
+      {
+        "source": "summary",
+        "target": "System.Title",
+        "mapper": "MapTitle"
+      },
+      {
+        "source": "assignee",
+        "target": "System.AssignedTo",
+        "mapper": "MapUser"
+      },
+      {
+        "source": "description",
+        "target": "System.Description"
+      },
+      {
+        "source": "priority",
+        "target": "Microsoft.VSTS.Common.Priority",
+        "mapping": {
+          "values": [
+            {
+              "source": "Blocker",
+              "target": "1"
+            },
+            {
+              "source": "P1 - Immediate",
+              "target": "1"
+            },
+            {
+              "source": "Critical",
+              "target": "1"
+            },
+            {
+              "source": "Highest",
+              "target": "1"
+            },
+            {
+              "source": "Major",
+              "target": "2"
+            },
+            {
+              "source": "P2 - High",
+              "target": "2"
+            },
+            {
+              "source": "P3 - Medium",
+              "target": "3"
+            },
+            {
+              "source": "Medium",
+              "target": "3"
+            },
+            {
+              "source": "P4 - Low",
+              "target": "3"
+            },
+            {
+              "source": "Lowest",
+              "target": "4"
+            },
+            {
+              "source": "Minor",
+              "target": "4"
+            },
+            {
+              "source": "Trivial",
+              "target": "4"
+            },
+            {
+              "source": "None",
+              "target": "5"
+            }
+          ]
+        }
+      },
+      {
+        "source": "customfield_10800",
+        "target": "System.IterationPath",
+        "mapper": "MapSprint"
+      },
+      {
+        "source": "labels",
+        "target": "System.Tags",
+        "mapper": "MapTags"
+      },
+      {
+        "source": "comment",
+        "target": "System.History"
+      },
+      {
+        "source": "status",
+        "target": "System.State",
+        "for": "Task",
+        "mapping": {
+          "values": [
+            {
+              "source": "To Do",
+              "target": "New"
+            },
+            {
+              "source": "Done",
+              "target": "Closed"
+            },
+            {
+              "source": "Closed",
+              "target": "Closed"
+            },
+            {
+              "source": "In Progress",
+              "target": "Active"
+            },
+            {
+              "source": "Code Review",
+              "target": "Resolved"
+            }
+          ]
+        }
+      },
+      {
+        "source": "status",
+        "target": "System.State",
+        "for": "Bug,Engineering,Improvement,Assignment,User Story",
+        "mapping": {
+          "values": [
+            {
+              "source": "To Do",
+              "target": "New"
+            },
+            {
+              "source": "Open",
+              "target": "New"
+            },
+            {
+              "source": "In Progress",
+              "target": "Active"
+            },
+            {
+              "source": "Blocked",
+              "target": "Blocked"
+            },
+            {
+              "source": "Reopened",
+              "target": "Active"
+            },
+            {
+              "source": "Re-open",
+              "target": "Active"
+            },
+            {
+              "source": "Code Review",
+              "target": "Resolved"
+            },
+            {
+              "source": "Ready To Merge",
+              "target": "Resolved"
+            },
+            {
+              "source": "In QA",
+              "target": "Resolved"
+            },
+            {
+              "source": "Resolved",
+              "target": "Resolved"
+            },
+            {
+              "source": "Done",
+              "target": "Closed"
+            },
+            {
+              "source": "Closed",
+              "target": "Closed"
+            }
+          ]
+        }
+      },
+      {
+        "source": "status",
+        "target": "System.State",
+        "for": "Epic,Feature",
+        "mapping": {
+          "values": [
+            {
+              "source": "To Do",
+              "target": "New"
+            },
+            {
+              "source": "Open",
+              "target": "New"
+            },
+            {
+              "source": "Done",
+              "target": "Done"
+            },
+            {
+              "source": "Closed",
+              "target": "Closed"
+            },
+            {
+              "source": "Code Review",
+              "target": "Resolved"
+            },
+            {
+              "source": "Resolved",
+              "target": "Resolved"
+            },
+            {
+              "source": "In Progress",
+              "target": "Active"
+            }
+          ]
+        }
+      },
+      {
+        "source": "customfield_10004",
+        "target": "Microsoft.VSTS.Scheduling.Effort",
+        "for": "Epic,Feature,User Story,Bug,Engineering,Improvement,Assignment",
+        "type": "double"
+      },
+      {
+        "source": "remainingEstimate",
+        "target": "Microsoft.VSTS.Scheduling.RemainingWork",
+        "for": "Bug,Task",
+        "type": "double"
+      },
+      {
+        "source": "description",
+        "target": "Microsoft.VSTS.TCM.ReproSteps",
+        "for": "Bug"
+      }
+    ]
+  }
+}

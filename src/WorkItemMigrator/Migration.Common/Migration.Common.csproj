@@ -80,6 +80,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ApplicationInsights.config" />
+    <None Include="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,8 @@ namespace Common.Config
 
         [JsonProperty(PropertyName = "sprint-field")]
         public string SprintField { get; set; } = "Sprint";
+        [JsonProperty(PropertyName = "confluence-link-field")]
+        public string ConfluenceLinkField { get; set; } = "Confluence link";
 
         [JsonProperty(PropertyName = "download-options")]
         public int DownloadOptions { get; set; } = 7;   // = All, see DownloadOptions
