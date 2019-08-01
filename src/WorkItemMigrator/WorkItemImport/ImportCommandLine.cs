@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Migration.Common.Log;
 using System.Linq;
+using System.IO;
+using System.Reflection;
 
 namespace WorkItemImport
 {
@@ -73,7 +75,8 @@ namespace WorkItemImport
             try
             {
                 string configFileName = configFile.Value();
-                ConfigReaderJson configReaderJson = new ConfigReaderJson(configFileName);
+                var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                ConfigReaderJson configReaderJson = new ConfigReaderJson($"{assemblyPath}\\{configFileName}");
                 config = configReaderJson.Deserialize();
 
                 var context = MigrationContext.Init("wi-import", config.Workspace, config.LogLevel, forceFresh);
