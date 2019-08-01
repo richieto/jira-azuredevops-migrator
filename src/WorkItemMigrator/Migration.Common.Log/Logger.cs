@@ -4,7 +4,6 @@ using Microsoft.ApplicationInsights.Extensibility;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Configuration;
 
 namespace Migration.Common.Log
@@ -41,7 +40,7 @@ namespace Migration.Common.Log
             _logFilePath = Path.Combine(dirPath, $"{app}-log-{DateTime.Now.ToString("yyMMdd-HHmmss")}.txt");
             _logLevel = GetLogLevelFromString(level);
         }
-        
+
         public static void StartSession(string app, string message, Dictionary<string, string> context, Dictionary<string, string> properties)
         {
             var currentContent = string.Empty;
@@ -91,7 +90,7 @@ namespace Migration.Common.Log
 
             if (level == LogLevel.Critical)
             {
-                if(!_errors.Contains(message))
+                if (!_errors.Contains(message))
                     _errors.Add(message);
 
                 Console.Write("Do you want to continue (y/n)? ");
@@ -119,6 +118,10 @@ namespace Migration.Common.Log
                     message = $"   {message}";
                 ToFile(level, message);
                 ToConsole(level, message);
+            }
+            else
+            {
+                Console.Title = _logFilePath + " - " + DateTime.Now.ToString();
             }
         }
 
@@ -171,6 +174,7 @@ namespace Migration.Common.Log
                     string dateTime = DateTime.Now.ToString("HH:mm:ss");
 
                     string log = $"[{levelPrefix}][{dateTime}] {message}";
+                    Console.WriteLine();
                     Console.WriteLine(log);
                 }
             }
