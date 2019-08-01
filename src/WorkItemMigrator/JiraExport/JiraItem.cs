@@ -320,6 +320,7 @@ namespace JiraExport
                         { "creator", extractName },
                         { "reporter", extractName},
                         { jira.Settings.SprintField, t => string.Join(", ", ParseCustomField(jira.Settings.SprintField, t, jira)) },
+                        { jira.Settings.ConfluenceLinkField, t => t.Value<string>() },
                         { "status", extractName },
                         { "parent", t => t.ExValue<string>("$.key") }
                     };
@@ -389,6 +390,17 @@ namespace JiraExport
                 else
                     return null;
             } }
+
+        public string ConfluenceLink
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_provider.Settings.EpicLinkField))
+                    return RemoteIssue.ExValue<string>($"$.fields.{_provider.Settings.ConfluenceLinkField}");
+                else
+                    return null;
+            }
+        }
         public string Parent { get { return RemoteIssue.ExValue<string>("$.fields.parent.key"); } }
         public List<string> SubItems { get { return RemoteIssue.SelectTokens("$.fields.subtasks.[*]", false).Select(st => st.ExValue<string>("$.key")).ToList(); } }
 

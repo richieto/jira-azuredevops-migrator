@@ -24,6 +24,8 @@ namespace JiraExport
             {
                 Logger.Log(ex, "Application stopped due to an unexpected exception", LogLevel.Critical);
             }
+            Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }

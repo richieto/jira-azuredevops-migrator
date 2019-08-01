@@ -1,0 +1,3 @@
+﻿kasunk@99x.lk=ricardomerguez@outlook.com
+poornimak@99x.lk=ricardomerguez@outlook.com
+default(changeto*)=ricardomerguez@outlook.com

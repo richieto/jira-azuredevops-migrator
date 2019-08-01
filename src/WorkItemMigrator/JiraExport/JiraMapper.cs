@@ -137,6 +137,7 @@ namespace JiraExport
                     wiItem.OriginId = issue.Key;
                     wiItem.Type = type;
                     wiItem.Revisions = revisions;
+                    wiItem.WikiURL = issue.ConfluenceLink;
                 }
                 else
                 {
@@ -172,6 +173,10 @@ namespace JiraExport
                         link.WiType = linkType;
 
                         links.Add(link);
+                    }
+                    else
+                    {
+                        Logger.Log(LogLevel.Error, $"Missing mapping value '{jiraLinkAction.Value.LinkType}' AS '{jiraLinkAction.Value}' for item {r.OriginId}.");
                     }
                 }
             }
@@ -271,6 +276,10 @@ namespace JiraExport
             var featureFields = new FieldMapping<JiraRevision>();
             var requirementFields = new FieldMapping<JiraRevision>();
             var userStoryFields = new FieldMapping<JiraRevision>();
+            var engineeringFields = new FieldMapping<JiraRevision>();
+            var improvementFields = new FieldMapping<JiraRevision>();
+            var assignmentFields = new FieldMapping<JiraRevision>();
+            var issueFields = new FieldMapping<JiraRevision>();
 
             Logger.Log(LogLevel.Info, "Initializing Jira field mapping...");
 
@@ -370,6 +379,22 @@ namespace JiraExport
                         {
                             userStoryFields.Add(item.Target, value);
                         }
+                        else if (wit == WorkItemType.Engineering)
+                        {
+                            engineeringFields.Add(item.Target, value);
+                        }
+                        else if (wit == WorkItemType.Improvement)
+                        {
+                            improvementFields.Add(item.Target, value);
+                        }
+                        else if (wit == WorkItemType.Assignment)
+                        {
+                            assignmentFields.Add(item.Target, value);
+                        }
+                        else if (wit == WorkItemType.Issue)
+                        {
+                            issueFields.Add(item.Target, value);
+                        }
                     }
                 }
             }
@@ -382,7 +407,11 @@ namespace JiraExport
                 { WorkItemType.Feature, MergeMapping(commonFields, featureFields) },
                 { WorkItemType.Epic, MergeMapping(commonFields, epicFields) },
                 { WorkItemType.Requirement, MergeMapping(commonFields, requirementFields) },
-                { WorkItemType.UserStory, MergeMapping(commonFields, userStoryFields) }
+                { WorkItemType.UserStory, MergeMapping(commonFields, userStoryFields) },
+                { WorkItemType.Engineering, MergeMapping(commonFields, engineeringFields) },
+                { WorkItemType.Improvement, MergeMapping(commonFields, improvementFields) },
+                { WorkItemType.Assignment, MergeMapping(commonFields, assignmentFields) },
+                { WorkItemType.Issue, MergeMapping(commonFields, issueFields) }
             };
 
             return mappingPerWiType;
@@ -445,7 +474,7 @@ namespace JiraExport
                         var mappedValue = (from s in item.Mapping.Values where s.Source == value.ToString() select s.Target).FirstOrDefault();
                         if(string.IsNullOrEmpty(mappedValue))
                         {
-                            Logger.Log(LogLevel.Warning, $"Missing mapping value '{value}' for field '{itemSource}'.");
+                            Logger.Log(LogLevel.Warning, $"Missing mapping value '{value}' for field '{itemSource}' for item {targetWit}.");
                         }
                         return (true, mappedValue);
                     }

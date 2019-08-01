@@ -1,0 +1,64 @@
+﻿Important differences
+
+In Jira, features are not used. No problem to migration
+In Jira, Task and Technical tasks seem to be the same, treat as new "Technical Task"
+In Jira, some Tasks should be actually Stories, others should be sub-tasks of a single item.
+
+
+Clarification in Jira becomes an Issue in DO
+Sub-task in Jira becomes Task in DO
+
+
+
+Need to be introduced at the same level of User Stories:
+
+-Engineering  (not directly releted to a product feature, previous technical task)
+-Improvement
+-Assignment (Task in Jira, not directly related to a product feature and limited scope)
+-
+
+
+
+Jira Token
+GJHtYM9ifLNvNidSR75q25B7
+
+
+
+
+
+Status
+
+Bloqued is missing
+
+Reopened is missing but is an action to active
+Code Review is missing, but naturally in resolved so it means is in test and qa close it.
+
+
+Note about
+Ready to merge is missing:
+
+once a pull request is completed the linked work item(s) get set to a
+"closed" stated instead of a "resolved" state.
+
+
+
+'Blocks' = blocks blocked by
+'Cloners' = "clones, is cloned by"
+'Problem/Incident'  = causes /caused by
+'Bonfire Testing' = discovered while testing / testing discovered
+
+'Gantt Start to Start'  = Has to be started together with
+'Gantt End to Start' =  Has to be started together with
+
+
+
+
+Confluence:
+Each page has links are in an OL tag that reflects the branch structure of the wiki space.
+This can be used to create folders.
+Fotter can be removed.
+Users can be mapped.
+
+
+NOTE:
+the jira provider retrieves all fields and links on initialization, if something missing start there

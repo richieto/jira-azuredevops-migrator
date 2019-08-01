@@ -14,6 +14,7 @@ namespace JiraExport
         public string Project { get; internal set; }
         public string EpicLinkField { get; internal set; }
         public string SprintField { get; internal set; } 
+        public string ConfluenceLinkField { get; internal set; }
         public string UserMappingFile { get; internal set; }
         public int BatchSize { get; internal set; }
         public string AttachmentsDir { get; internal set; }

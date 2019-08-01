@@ -28,6 +28,7 @@ namespace JiraExport
 
         public JiraSettings Settings { get; private set; }
 
+        public IEnumerable<CustomField> Fields { get; private set; }
         public IEnumerable<IssueLinkType> LinkTypes { get; private set; }
 
         private JiraProvider()
@@ -41,7 +42,7 @@ namespace JiraExport
             provider.Settings = settings;
 
             Logger.Log(LogLevel.Info, "Retrieving Jira fields...");
-            provider.Jira.Fields.GetCustomFieldsAsync().Wait();
+            provider.Fields = provider.Jira.Fields.GetCustomFieldsAsync().Result;
             Logger.Log(LogLevel.Info, "Retrieving Jira link types...");
             provider.LinkTypes = provider.Jira.Links.GetLinkTypesAsync().Result;
 

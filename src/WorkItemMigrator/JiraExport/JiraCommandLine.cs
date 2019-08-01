@@ -73,9 +73,10 @@ namespace JiraExport
             try
             {
                 string configFileName = configFile.Value();
-                ConfigReaderJson configReaderJson = new ConfigReaderJson(configFileName);
+                var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                ConfigReaderJson configReaderJson = new ConfigReaderJson($"{assemblyPath}\\{configFileName}");
                 var config = configReaderJson.Deserialize();
-
+                
                 InitSession(config);
 
                 // Migration session level settings
@@ -87,7 +88,7 @@ namespace JiraExport
                 var jiraSettings = new JiraSettings(user.Value(), password.Value(), url.Value(), config.SourceProject)
                 {
                     BatchSize = config.BatchSize,
-                    UserMappingFile = config.UserMappingFile != null ? Path.Combine(migrationWorkspace, config.UserMappingFile) : string.Empty,
+                    UserMappingFile = config.UserMappingFile != null ? Path.Combine(assemblyPath, config.UserMappingFile) : string.Empty,
                     AttachmentsDir = Path.Combine(migrationWorkspace, config.AttachmentsFolder),
                     JQL = config.Query
                 };
@@ -97,16 +98,21 @@ namespace JiraExport
                 itemsCount = jiraProvider.GetItemCount(jiraSettings.JQL);
 
                 BeginSession(configFileName, config, forceFresh, jiraProvider, itemsCount);
-
-                jiraSettings.EpicLinkField = jiraProvider.GetCustomId(config.EpicLinkField);
+                //change to retrive from fields
+                jiraSettings.EpicLinkField = jiraProvider.Fields.FirstOrDefault(f => f.Name == "Epic Link")?.Id;
                 if(string.IsNullOrEmpty(jiraSettings.EpicLinkField))
                 {
                     Logger.Log(LogLevel.Warning, $"Epic link field missing for config field '{config.EpicLinkField}'.");
                 }
-                jiraSettings.SprintField = jiraProvider.GetCustomId(config.SprintField);
+                jiraSettings.SprintField = jiraProvider.Fields.FirstOrDefault(f => f.Name == "Sprint")?.Id;
                 if (string.IsNullOrEmpty(jiraSettings.SprintField))
                 {
                     Logger.Log(LogLevel.Warning, $"Sprint link field missing for config field '{config.SprintField}'.");
+                }
+                jiraSettings.ConfluenceLinkField = config.ConfluenceLinkField;
+                if (string.IsNullOrEmpty(jiraSettings.ConfluenceLinkField))
+                {
+                    Logger.Log(LogLevel.Warning, $"Confluence link field missing for config field '{config.ConfluenceLinkField}'.");
                 }
 
                 var mapper = new JiraMapper(jiraProvider, config);
@@ -114,7 +120,10 @@ namespace JiraExport
                 var exportedKeys = new HashSet<string>(Directory.EnumerateFiles(migrationWorkspace, "*.json").Select(f => Path.GetFileNameWithoutExtension(f)));
                 var skips = forceFresh ? new HashSet<string>(Enumerable.Empty<string>()) : exportedKeys;
 
-                var issues = jiraProvider.EnumerateIssues(jiraSettings.JQL, skips, downloadOptions);
+                var query = jiraSettings.JQL;
+                //Debugging id ex: query = "project = PL AND id = PL-2449";
+
+                var issues = jiraProvider.EnumerateIssues(query, skips, downloadOptions);
 
                 foreach (var issue in issues)
                 {
