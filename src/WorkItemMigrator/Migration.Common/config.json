@@ -1,6 +1,6 @@
 {
   "source-project": "PL",
-  "target-project": "Adra Test2",
+  "target-project": "Adra Test3",
   "query": "project = PL ORDER BY Rank ASC",
   "workspace": "C:\\Temp\\JiraExport\\",
   "epic-link-field": "customfield_11100",
