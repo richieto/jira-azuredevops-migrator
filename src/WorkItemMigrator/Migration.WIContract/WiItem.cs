@@ -6,6 +6,7 @@ namespace Migration.WIContract
     {
         public string Type { get; set; }
         public string OriginId { get; set; }
+        public string WikiURL { get; set; }
         public int WiId { get; set; } = -1;
         public List<WiRevision> Revisions { get; set; }
 

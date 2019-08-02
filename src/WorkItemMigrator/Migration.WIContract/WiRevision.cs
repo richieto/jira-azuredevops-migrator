@@ -27,6 +27,10 @@ namespace Migration.WIContract
         public static string Task => "Task";
         public static string Epic => "Epic";
         public static string Feature => "Feature";
+        public static string Engineering => "Engineering";
+        public static string Improvement => "Improvement";
+        public static string Issue => "Issue";
+        public static string Assignment => "Assignment";
 
         public static List<string> GetWorkItemTypes(string[] notForValues = null)
         {
